@@ -43,6 +43,20 @@ def par_checker(symbol_string):
     else:
         return False
 
+def divide_by_2(dec_number, base):
+    rem_stack = Stack()
+    digits = "0123456789ABCDEF"
+
+    while(dec_number>0):
+        rem_stack.push(dec_number % base)
+        dec_number = dec_number // base
+    bin_number = ""
+    while(not rem_stack.is_empty()):
+        bin_number = bin_number + str(digits[rem_stack.pop()])
+
+    return bin_number
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print("anagram_solution:")
@@ -58,5 +72,8 @@ if __name__ == '__main__':
     print(s.peek())
     print("par_checker:")
     print(par_checker("(()[])"))
+    print("binary_number:")
+    print(divide_by_2(233, 2))
+    print(divide_by_2(233, 16))
 
 
