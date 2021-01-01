@@ -122,9 +122,7 @@ def partition(a_list, first, last):
         if right_mark < left_mark:
             done = True
         else:
-            temp = a_list[left_mark]
-            a_list[left_mark] = a_list[right_mark]
-            a_list[right_mark] = temp
+            a_list[left_mark], a_list[right_mark] = a_list[right_mark], a_list[left_mark]
 
     temp = a_list[first]
     a_list[first] = a_list[right_mark]
@@ -138,7 +136,7 @@ if __name__ == '__main__':
     #mylist = [4,2,1,3]
     mylist = []
     for i in range(0, 10000):
-        n = random.randint(1, 30)
+        n = random.randint(1, 420)
         mylist.append(n)
 
     print(mylist)
@@ -180,7 +178,20 @@ if __name__ == '__main__':
     print("quick sort:")
     start_time = time.time()
     quick_sort(mylist)
-    #print(quick_sort(mylist))
+    print(quick_sort(mylist))
     end_time = time.time()
     print(end_time - start_time)
 
+# Performance:
+# bubble sort:
+# 3.4268665313720703
+# selection sort:
+# 3.2364022731781006
+# insertion sort:
+# 5.2154436111450195
+# shell sort:
+# 0.046623945236206055
+# merge sort:
+# 0.04364824295043945
+# quick sort:
+# 0.07043218612670898
