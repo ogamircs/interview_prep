@@ -102,11 +102,11 @@ def quick_sort(input_array):
 
 def quick_sort_helper(a_list, first, last):
     if first < last:
-        split_point = partition(a_list, first, last)
+        split_point = partition(a_list, first, last) #each partition does a necassary swap
         quick_sort_helper(a_list, first, split_point - 1)
         quick_sort_helper(a_list, split_point + 1, last)
 
-
+#it  swaps the elements through the partition algorithm
 def partition(a_list, first, last):
     pivot_value = a_list[first]
     left_mark = first + 1
@@ -124,9 +124,7 @@ def partition(a_list, first, last):
         else:
             a_list[left_mark], a_list[right_mark] = a_list[right_mark], a_list[left_mark]
 
-    temp = a_list[first]
-    a_list[first] = a_list[right_mark]
-    a_list[right_mark] = temp
+    a_list[first], a_list[right_mark] = a_list[right_mark], a_list[first]
 
     return right_mark
 
@@ -134,12 +132,13 @@ if __name__ == '__main__':
     print("original list:")
     #mylist = [19, 1, 9, 7, 3, 10, 13, 8, 15, 8, 12]
     #mylist = [4,2,1,3]
+    #print(mylist)
+
     mylist = []
     for i in range(0, 10000):
         n = random.randint(1, 420)
         mylist.append(n)
 
-    print(mylist)
     print("bubble sort:")
     start_time = time.time()
     bubble_sort(mylist)
@@ -178,20 +177,20 @@ if __name__ == '__main__':
     print("quick sort:")
     start_time = time.time()
     quick_sort(mylist)
-    print(quick_sort(mylist))
+    #print(quick_sort(mylist))
     end_time = time.time()
     print(end_time - start_time)
 
 # Performance:
 # bubble sort:
-# 3.4268665313720703
+# 3.448690176010132
 # selection sort:
-# 3.2364022731781006
+# 3.264178514480591
 # insertion sort:
-# 5.2154436111450195
+# 5.30273962020874
 # shell sort:
-# 0.046623945236206055
+# 0.047616004943847656
 # merge sort:
-# 0.04364824295043945
+# 0.041168212890625
 # quick sort:
-# 0.07043218612670898
+# 0.03471994400024414
