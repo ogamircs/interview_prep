@@ -1,4 +1,5 @@
 from BinHeap import BinHeap
+from BinarySearchTree import BinarySearchTree
 from BinaryTree import BinaryTree
 
 if __name__ == '__main__':
@@ -25,3 +26,13 @@ if __name__ == '__main__':
     print(bh.del_min())
     print(bh.del_min())
     print(bh.del_min())
+
+    print("BinarySearchTree:")
+    mytree = BinarySearchTree()
+    mytree[3] = "red"
+    mytree[4] = "blue"
+    mytree[6] = "yellow"
+    mytree[2] = "at"
+
+    print(mytree[6])
+    print(mytree[2])
