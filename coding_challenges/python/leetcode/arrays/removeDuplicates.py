@@ -1,4 +1,3 @@
-
 def removeDuplicates(nums):
     """
     :type nums: List[int]
