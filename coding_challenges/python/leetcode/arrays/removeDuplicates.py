@@ -9,6 +9,7 @@ def removeDuplicates(nums):
         if(element != nums[i]):
             element = nums[i]
         elif(element == nums[i]):
+            element = nums[i]
 
 
 
