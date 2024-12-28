@@ -1,32 +1,39 @@
-class Solution:
-    def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -> int:
-        i = 0
-        j = len(s)-1
-        max = 0
-        while(i<=j):
-            dist_chars = len(set(s[i:(j+1)]))
-            if(dist_chars>k):
-                p = j
-                while(j>i):
-                    j -= 1
-                    res1 = self.lengthOfLongestSubstringKDistinct(s[i:j+1], k)
-                    if(res1>max):
-                        max = res1
-                j = p
-                i = i+1
-                res2 = self.lengthOfLongestSubstringKDistinct(s[i:j+1], k)
-                if(res2>max):
-                    max = res2
-                #findSubStr(s, i, j-1, k)
-            elif(dist_chars<=k):
-                res3 = (j-i)+1
-                if(res3>max):
-                    max = res3
-                return max
-        return max
-t = Solution()
+from heapq import heappush, heappop
+from collections import deque
 
-s = "eceba"
-k = 2
-print(f"Answer is: {t.lengthOfLongestSubstringKDistinct(s,k)}")
-#Explanation: The substring is "ece" with length 3.
+def quickestWayUp(ladders, snakes):
+    BOARD_SIZE = 10
+    DICE_ROLL = [i for i in range(1,7)]
+    shortest_path = []
+    #build adjecensy matrix
+    adj_matrix = {i:[] for i in range(BOARD_SIZE)}
+    for i in range(BOARD_SIZE-1):
+        next = i+1
+        if(next<BOARD_SIZE-1):
+            adj_matrix[i].append(next)
+        else:
+            adj_matrix[i].append(BOARD_SIZE-1)
+    for e in ladders:
+        adj_matrix[e[0]-1].append(e[1]-1)
+    for e in snakes:
+        adj_matrix[e[0]-1].append(e[1]-1)
+
+    for DICE in DICE_ROLL:
+        #now do a BFS from 0 to 100
+        out = [-1] * BOARD_SIZE # Distances array, -1 for unreachable nodes
+        visited = set()
+        queue = deque([0])
+        while queue:
+            current = queue.popleft()
+            visited.add(current)
+            for neighbor in adj_matrix[current]:
+                if ((neighbor not in visited) and (abs(neighbor-current)==DICE)):
+                    visited.add(neighbor)
+                    queue.append(neighbor)
+                    out[neighbor] = out[current] + 1 
+        heappush(shortest_path,out[BOARD_SIZE-1])
+
+    print(shortest_path)
+    return heappop(shortest_path)
+
+quickestWayUp([[2,4]],[[6,1]])
