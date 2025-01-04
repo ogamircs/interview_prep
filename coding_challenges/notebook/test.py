@@ -1,39 +1,30 @@
-from heapq import heappush, heappop
-from collections import deque
+def spiralArray(n):
+    def spiral(a):
+        n = len(a)
+        r = c = 0
+        for i in range(n*n):
+            a[r][c] = i+1
 
-def quickestWayUp(ladders, snakes):
-    BOARD_SIZE = 10
-    DICE_ROLL = [i for i in range(1,7)]
-    shortest_path = []
-    #build adjecensy matrix
-    adj_matrix = {i:[] for i in range(BOARD_SIZE)}
-    for i in range(BOARD_SIZE-1):
-        next = i+1
-        if(next<BOARD_SIZE-1):
-            adj_matrix[i].append(next)
-        else:
-            adj_matrix[i].append(BOARD_SIZE-1)
-    for e in ladders:
-        adj_matrix[e[0]-1].append(e[1]-1)
-    for e in snakes:
-        adj_matrix[e[0]-1].append(e[1]-1)
+            if(i+1<n):
+                c+=1
+            elif(i+1<(n*2)-1):
+                r+=1
+            elif(i+1<(n*3)-2):
+                c-=1
+            elif(i+1<(n*4)-4):
+                r-=1
+            else:
+                break
+            
+    arr = []
+    for i in range(n):
+        sarr = []
+        for j in range(n):
+            sarr.append(0)
+        arr.append(sarr)
+    
+    spiral(arr)
 
-    for DICE in DICE_ROLL:
-        #now do a BFS from 0 to 100
-        out = [-1] * BOARD_SIZE # Distances array, -1 for unreachable nodes
-        visited = set()
-        queue = deque([0])
-        while queue:
-            current = queue.popleft()
-            visited.add(current)
-            for neighbor in adj_matrix[current]:
-                if ((neighbor not in visited) and (abs(neighbor-current)==DICE)):
-                    visited.add(neighbor)
-                    queue.append(neighbor)
-                    out[neighbor] = out[current] + 1 
-        heappush(shortest_path,out[BOARD_SIZE-1])
+    return arr
 
-    print(shortest_path)
-    return heappop(shortest_path)
-
-quickestWayUp([[2,4]],[[6,1]])
+print(spiralArray(3))
