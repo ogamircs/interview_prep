@@ -1,36 +1,23 @@
-def numberOfWays(arr,k):
-    n = len(arr)
-    res = 0
-    i = 0
-    j = n-1
-    a = sorted(arr)
-    while(i<j):
-        if((a[i]+a[j])==k):
-            if(a[i]==a[j]):
-                count = j - i + 1
-                res += (count * (count - 1)) // 2
-                break
-            else:
-                # Count duplicates for a[i] and a[j]
-                left_count = 1
-                right_count = 1
-                while i + 1 < j and a[i] == a[i + 1]:
-                    left_count += 1
-                    i += 1
-                while j - 1 > i and a[j] == a[j - 1]:
-                    right_count += 1
-                    j -= 1
-            res += left_count * right_count  # Total pairs for current i and j
-            i += 1
-            j -= 1
-        elif((a[i]+a[j])>k):
-            j -= 1
+def rotationalCipher(s, rotationFactor):
+    newS = ""
+    small_chars = "abcdefghijklmnopqrstuvwxyz"
+    big_chars = small_chars.upper()
+    n = len(small_chars)
+    for c in s:
+        if(c in small_chars):
+            newIndex = small_chars.index(c)+rotationFactor
+            while(newIndex>(n-1)):
+                newIndex = newIndex-n
+            newS += small_chars[newIndex]
+        elif(c in big_chars):
+            newIndex = big_chars.index(c)+rotationFactor
+            while(newIndex>(n-1)):
+                newIndex = newIndex-n
+            newS+= big_chars[newIndex]
         else:
-            i += 1
-        
-    return res
+            newS += c
+    return newS
 
-arr = [1, 5, 3, 3, 3]
-arr = [1, 3, 3, 3, 5]
-k = 6
-print(numberOfWays(arr,k))
+input = "abcdefghijklmNOPQRSTUVWXYZ0123456789" 
+rotationFactor = 39
+print(rotationalCipher(input, rotationFactor))
